@@ -5,7 +5,7 @@
 # Checks disk usage, memory load, uptime, and important services, then sends a Pushover notification.
 
 
-echo "Script is running..."
+echo "Script is running.."
 
 
 # Services to check (customize as needed)
@@ -29,7 +29,7 @@ check_services() {
 # === Gather System Info ===
 
 
-# Disk usage (human-readable, root partition)
+# Disk usage
 DISK_CLEAN=$(df -h / | awk 'NR==2 {print $5 " used (" $3 "/" $2 ")"}')
 
 
@@ -37,11 +37,11 @@ DISK_CLEAN=$(df -h / | awk 'NR==2 {print $5 " used (" $3 "/" $2 ")"}')
 MEM_CLEAN=$(free -m | awk '/Mem:/ {printf "%.0f%% used (%d/%d MB)", $3/$2*100, $3, $2}')
 
 
-# Uptime (pretty format)
+# Uptime
 UPTIME=$(uptime -p | cut -d " " -f2-)
 
 
-# Service status (with emoji for readability)
+# Service status
 SERVICES_STATUS=""
 for service in "${SERVICES[@]}"; do
   if systemctl is-active --quiet "$service"; then
